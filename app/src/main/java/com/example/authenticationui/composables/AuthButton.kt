@@ -12,12 +12,24 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun AuthButton(isButtonEnable:Boolean,@StringRes btnName:Int){
+fun AuthButton(
+    isButtonEnable: Boolean,
+    @StringRes btnName: Int,
+    isButtonClick: () -> Unit,
+    emailId: String,
+    password: String
+) {
     ElevatedButton(
-        onClick = { }, enabled = isButtonEnable, colors = ButtonDefaults.elevatedButtonColors(
+        onClick = {
+            println(emailId)
+            println(password)
+        },
+        enabled = isButtonEnable,
+        colors = ButtonDefaults.elevatedButtonColors(
             containerColor = MaterialTheme.colorScheme.primary,
             contentColor = MaterialTheme.colorScheme.onPrimary,
-        ), modifier = Modifier.width(200.dp)
+        ),
+        modifier = Modifier.width(200.dp)
     ) {
         Text(stringResource(id = btnName), style = MaterialTheme.typography.bodyMedium)
     }

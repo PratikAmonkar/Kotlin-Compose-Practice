@@ -8,10 +8,15 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Lock
-import androidx.compose.material3.*
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,8 +32,9 @@ import com.example.authenticationui.composables.ImageDisplay
 
 @Composable
 fun LoginScreen(modifier: Modifier = Modifier) {
-    var email = rememberSaveable { mutableStateOf("") }
-    var password = rememberSaveable { mutableStateOf("") }
+    var email by rememberSaveable { mutableStateOf("") }
+    var password by rememberSaveable { mutableStateOf("") }
+    var openDialog by rememberSaveable { mutableStateOf(true) }
 
     Column(
         modifier
@@ -41,8 +47,8 @@ fun LoginScreen(modifier: Modifier = Modifier) {
         Text(text = stringResource(R.string.login), style = MaterialTheme.typography.titleLarge)
         ImageDisplay(imageName = R.drawable.login_img)
         OutlinedTextField(
-            value = email.value,
-            onValueChange = { email.value = it },
+            value = email,
+            onValueChange = { email = it },
             label = { Text("Email id") },
             modifier = Modifier.fillMaxWidth(),
             placeholder = { Text("Enter your email id") },
@@ -60,8 +66,8 @@ fun LoginScreen(modifier: Modifier = Modifier) {
             singleLine = true,
         )
         OutlinedTextField(
-            value = password.value,
-            onValueChange = { password.value = it },
+            value = password,
+            onValueChange = { password = it },
             label = { Text("Password") },
             modifier = Modifier.fillMaxWidth(),
             placeholder = { Text("Enter your password") },
@@ -78,8 +84,13 @@ fun LoginScreen(modifier: Modifier = Modifier) {
                 autoCorrect = false,
             ),
         )
-        AuthButton(isButtonEnable = true, btnName = R.string.login)
-
+        AuthButton(
+            isButtonEnable = true,
+            btnName = R.string.login,
+            isButtonClick = { openDialog = true },
+            emailId = email,
+            password = password,
+        )
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
             Text("Don't have an account ? ")
             Text(

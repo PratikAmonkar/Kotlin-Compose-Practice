@@ -8,10 +8,15 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Lock
-import androidx.compose.material3.*
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,6 +36,8 @@ fun SignupScreen(modifier: Modifier = Modifier) {
     var email = rememberSaveable { mutableStateOf("") }
     var password = rememberSaveable { mutableStateOf("") }
     var confirmPassword = rememberSaveable { mutableStateOf("") }
+    var openDialog by rememberSaveable { mutableStateOf(false) }
+
 
     Column(
         modifier
@@ -96,7 +103,14 @@ fun SignupScreen(modifier: Modifier = Modifier) {
                 autoCorrect = false,
             ),
         )
-        AuthButton(isButtonEnable = true, btnName = R.string.Signup)
+//        AuthButton(
+//            isButtonEnable = true,
+//            btnName = R.string.login,
+//            isButtonClick = { openDialog = true },
+//            emailId = email,
+//            password = password
+//        )
+
         Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
             Text("Already have an account ? ")
             Text(
